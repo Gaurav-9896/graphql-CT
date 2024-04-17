@@ -1,0 +1,43 @@
+{
+  "name": "graphqlplayground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch 'src/**/*.ts' --exec node dist/server.js",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
+  
+      
+    
+    
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.10.3",
+    "@apollo/server-plugin-landing-page-graphql-playground": "^4.0.1",
+    "@graphql-tools/executor-http": "^1.0.9",
+    "@graphql-tools/schema": "^10.0.3",
+    "@graphql-tools/wrap": "^10.0.5",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "lodash": "^4.17.21",
+    "ts-node": "^10.9.2",
+    "vercel": "^34.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20.12.7",
+    "nodemon": "^3.1.0",
+    "pre-commit": "^1.2.2"
+  }
+}
