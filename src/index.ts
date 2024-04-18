@@ -10,7 +10,7 @@ import lodash from 'lodash';
 import { getAccessToken } from './service/CTtoken';
 import customerResolvers from './resolvers/customerResolver';
 import productResolvers from './resolvers/ProductsResolver';
-import {ApolloServerPluginLandingPageLocalDefault} from "@apollo/server/plugin/landingPage/default";
+import apiClientResolver from './resolvers/apiClientsResolver';
 
 
    async function startServer() {
@@ -36,7 +36,8 @@ import {ApolloServerPluginLandingPageLocalDefault} from "@apollo/server/plugin/l
             typeDefs: subschema.schema,
             resolvers: lodash.merge(
                 customerResolvers,
-                productResolvers
+                productResolvers,
+                apiClientResolver
             )
         });
       
@@ -50,8 +51,8 @@ import {ApolloServerPluginLandingPageLocalDefault} from "@apollo/server/plugin/l
         const app = express();
         app.use(express.json());
         app.use(cors({
-            origin: '*', // Allow requests from all domains
-            credentials: true, // Enable CORS response for requests with credentials
+            origin: '*',
+            credentials: true,
         }));
         
 
@@ -69,3 +70,7 @@ import {ApolloServerPluginLandingPageLocalDefault} from "@apollo/server/plugin/l
 startServer().catch(error => {
     console.error('Error starting the server:', error);
 });
+
+
+
+

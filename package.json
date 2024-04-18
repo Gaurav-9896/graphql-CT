@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec node dist/server.js",
-    "build": "rimraf dist && tsc",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec  node dist/index.js",
+    "compile": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist"
-  
-      
-    
-    
+    "add-build": "git add dist",
+    "start": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel deploy --prod"
   },
   "pre-commit": [
     "ts.check",
@@ -30,6 +29,7 @@
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "vercel": "^34.0.0"
   },
