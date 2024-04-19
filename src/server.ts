@@ -13,8 +13,10 @@ import productResolvers from './resolvers/ProductsResolver';
 import apiClientResolver from './resolvers/apiClientsResolver';
 
 
-   async function startServer() {
-    
+
+   export async function startServer() {
+       const app = express();
+        app.use(express.json());
     dotenv.config();
   
     try {
@@ -44,16 +46,12 @@ import apiClientResolver from './resolvers/apiClientsResolver';
 
         const server = new ApolloServer({
             schema,
-          
+         
             introspection: true
         });
 
-        const app = express();
-        app.use(express.json());
-        app.use(cors({
-            origin: '*',
-            credentials: true,
-        }));
+        
+       
         
 
         await server.start();
@@ -63,13 +61,16 @@ import apiClientResolver from './resolvers/apiClientsResolver';
     } catch (error) {
         console.log("Internal Server Error", error);
     }
+
+    
 }
-
-
-
 startServer().catch(error => {
     console.error('Error starting the server:', error);
 });
+
+
+
+
 
 
 

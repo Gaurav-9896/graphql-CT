@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.startServer = void 0;
 const server_1 = require("@apollo/server");
 const dotenv_1 = __importDefault(require("dotenv"));
 const express4_1 = require("@apollo/server/express4");
 const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
 const schema_1 = require("@graphql-tools/schema");
 const executor_http_1 = require("@graphql-tools/executor-http");
 const wrap_1 = require("@graphql-tools/wrap");
@@ -42,10 +42,6 @@ async function startServer() {
         });
         const app = (0, express_1.default)();
         app.use(express_1.default.json());
-        app.use((0, cors_1.default)({
-            origin: '*',
-            credentials: true,
-        }));
         await server.start();
         app.use('/graphql', (0, express4_1.expressMiddleware)(server, { context: async ({ req }) => ({ req }) }));
         app.listen(8000, () => console.log('Server started at port 8000'));
@@ -54,6 +50,7 @@ async function startServer() {
         console.log("Internal Server Error", error);
     }
 }
+exports.startServer = startServer;
 startServer().catch(error => {
     console.error('Error starting the server:', error);
 });
