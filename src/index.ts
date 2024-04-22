@@ -1,4 +1,4 @@
-import { ApolloServer } from '@apollo/server';
+import  {ApolloServer}  from '@apollo/server';
 import dotenv from 'dotenv'
 import { expressMiddleware } from '@apollo/server/express4';
 import express from 'express';
@@ -14,11 +14,12 @@ import apiClientResolver from './resolvers/apiClientsResolver';
 
 
 
-   export async function startServer() {
+ async function startServer() {
        const app = express();
         app.use(express.json());
+        app.use(cors());
     dotenv.config();
-  
+  debugger
     try {
         const remoteSchemaURL = `${process.env.DEV_API_URL}/${process.env.DEV_PROJECT_KEY}/graphql`;
        
@@ -51,12 +52,11 @@ import apiClientResolver from './resolvers/apiClientsResolver';
         });
 
         
-       
+        await server.start()
         
 
-        await server.start();
-        app.use('/graphql', expressMiddleware(server,{context: async({ req }) => ({ req })}));
-
+        app.use("/graphql", expressMiddleware(server,{context: async({ req }) => ({ req })}));
+      
         app.listen(8000, () => console.log('Server started at port 8000'));
     } catch (error) {
         console.log("Internal Server Error", error);
