@@ -11,6 +11,7 @@ import { getAccessToken } from './service/CTtoken';
 import customerResolvers from './resolvers/customerResolver';
 import productResolvers from './resolvers/ProductsResolver';
 import apiClientResolver from './resolvers/apiClientsResolver';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from '@apollo/server-plugin-landing-page-graphql-playground';
 
 
 
@@ -47,7 +48,9 @@ import apiClientResolver from './resolvers/apiClientsResolver';
 
         const server = new ApolloServer({
             schema,
-         
+         plugins:[
+           ApolloServerPluginLandingPageGraphQLPlayground()
+         ],
             introspection: true
         });
 
