@@ -17,6 +17,8 @@ const customerResolver_1 = __importDefault(require("./resolvers/customerResolver
 const ProductsResolver_1 = __importDefault(require("./resolvers/ProductsResolver"));
 const apiClientsResolver_1 = __importDefault(require("./resolvers/apiClientsResolver"));
 async function startServer() {
+    const app = (0, express_1.default)();
+    app.use(express_1.default.json());
     dotenv_1.default.config();
     try {
         const remoteSchemaURL = `${process.env.DEV_API_URL}/${process.env.DEV_PROJECT_KEY}/graphql`;
@@ -40,8 +42,6 @@ async function startServer() {
             schema,
             introspection: true
         });
-        const app = (0, express_1.default)();
-        app.use(express_1.default.json());
         await server.start();
         app.use('/graphql', (0, express4_1.expressMiddleware)(server, { context: async ({ req }) => ({ req }) }));
         app.listen(8000, () => console.log('Server started at port 8000'));
